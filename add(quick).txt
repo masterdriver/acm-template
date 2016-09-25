@@ -1,0 +1,38 @@
+string operator + (string a, string b){
+	int lena, lenb, lenc, i;
+	int handl = 0;
+	lena = a.length();
+	lenb = b.length();
+	lenc = max(lena, lenb) + 3;
+	char c[lenc];
+	memset(c, 0, sizeof(c));
+	lenc--;
+	while(lena > 0 && lenb > 0){
+		c[--lenc] = a[--lena] + b[--lenb] + handl - '0';
+		handl = 0;
+		if( c[lenc] > '9'){
+			c[lenc] = c[lenc] - 10;
+			handl = 1;
+		}
+	}
+	while(lena > 0){
+		c[--lenc] = a[--lena] + handl;
+		handl = 0;
+		if(c[lenc] > '9'){
+			c[lenc] = c[lenc] - 10;
+			handl = 1;
+		}
+	}
+	while(lenb > 0){
+		c[--lenc] = b[--lenb] + handl;
+		handl = 0;
+		if(c[lenc] > '9'){
+			c[lenc] = c[lenc] - 10;
+			handl = 1;
+		}
+	}
+	if(handl == 1)  c[--lenc] = '1';
+	i = 0;
+	while(c[i] == 0) i++;
+	return c+i;
+}
